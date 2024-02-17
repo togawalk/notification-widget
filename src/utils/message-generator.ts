@@ -1,16 +1,34 @@
 import { v4 as uuid } from "uuid";
 
 let titles = [
-  ["Apple's newest iPhone is here", "Watch our July event"],
-  ["Your funds have been processed", "See your latest deposit online"],
-  ["This Week in Sports", "The finals are heating up"],
-  ["Changelog update", "Edge subroutines and more"],
-  ["React Hawaii is here!", "Time for fun in the sun"],
+  {
+    title: "Apple's newest iPhone is here",
+    subtitle: "Watch our July event"
+  },
+  {
+    title: "Your funds have been processed",
+    subtitle: "See your latest deposit online"
+  },
+  {
+    title: "This Week in Sports",
+    subtitle: "The finals are heating up",
+  },
+  {
+    title: "Changelog update",
+    subtitle: "Edge subroutines and more",
+  },
+  {
+    title: "React Hawaii is here!",
+    subtitle: "Time for fun in the sun",
+  }
 ];
 
 export interface MessageData {
   id: string;
-  content: string[];
+  content: {
+    title: string,
+    subtitle: string
+  };
 }
 
 export const generateMessage = (): MessageData => {
