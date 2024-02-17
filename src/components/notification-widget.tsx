@@ -16,6 +16,15 @@ export const NotificationWidget = () => {
 
   }
 
+  const toggleMessage = (id: string) => {
+    setSelectedMessages((prev) => {
+      if (selectedMessages.includes(id)) {
+        return prev.filter((i) => i != id)
+      }
+      return [...prev, id]
+    })
+  }
+
   return (
     <div className="bg-white rounded-xl shadow">
       <div className="flex justify-between border-b-zinc-100 border-b p-4 font-medium">
@@ -25,12 +34,16 @@ export const NotificationWidget = () => {
       <div className="max-h-[400px] px-3 py-2 overflow-y-scroll">
         <ul>
           {[...messages].reverse().map((message) => {
+            const isSelected = selectedMessages.includes(message.id)
             return (
               <li key={message.id}>
                 <div className="py-0.5 transition">
-                  <button className="flex flex-col w-full p-4 rounded-md transition-colors items-start">
+                  <button
+                    className={`${isSelected ? 'bg-blue-400 text-white' : "bg-white text-zinc-600"} flex flex-col w-full p-4 rounded-md transition-colors items-start`}
+                    onClick={() => toggleMessage(message.id)}
+                  >
                     <p className="font-medium transition-colors">{message.content.title}</p>
-                    <span className="text-sm transition-colors">{message.content.subtitle}</span>
+                    <span className={`${isSelected ? "text-zinc-100" : "text-zinc-400"} text-sm transition-colors`}>{message.content.subtitle}</span>
                   </button>
                 </div>
               </li>
