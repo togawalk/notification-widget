@@ -1,12 +1,11 @@
-import { generateMessage } from "@/utils/message-generator";
+import { NotificationWidget } from "@/components/notification-widget";
 
 export default function Home() {
-  const message = generateMessage()
-
   return (
-    <main className="bg-gray-50 min-h-screen">
-      {message.content}
-      hello
+    <main className="bg-zinc-300 min-h-screen flex items-center justify-center">
+      <div className="w-full max-w-lg">
+        <NotificationWidget />
+      </div>
     </main>
   );
 }
