@@ -2,14 +2,14 @@
 
 import { MessageData, generateMessage } from "@/utils/message-generator"
 import { useState } from "react"
+import { NotificationWidgetItem } from "./notification-widget-item"
 
-export const NotificationWidget = () => {
+const NotificationWidget = () => {
   const [messages, setMessages] = useState<MessageData[]>([])
   const [selectedMessages, setSelectedMessages] = useState<string[]>([])
 
   const addMessage = () => {
     const newMessage = generateMessage()
-
     setMessages((prev) => {
       return [...prev, newMessage]
     })
@@ -50,17 +50,7 @@ export const NotificationWidget = () => {
           {[...messages].reverse().map((message) => {
             const isSelected = selectedMessages.includes(message.id)
             return (
-              <li key={message.id}>
-                <div className="py-0.5 transition">
-                  <button
-                    className={`${isSelected ? 'bg-blue-400 text-white' : "bg-white text-zinc-600"} flex flex-col w-full p-4 rounded-md transition-colors items-start`}
-                    onClick={() => toggleMessage(message.id)}
-                  >
-                    <p className="font-medium transition-colors">{message.content.title}</p>
-                    <span className={`${isSelected ? "text-zinc-100" : "text-zinc-400"} text-sm transition-colors`}>{message.content.subtitle}</span>
-                  </button>
-                </div>
-              </li>
+              <NotificationWidgetItem onClick={() => toggleMessage(message.id)} isSelected={isSelected} message={message} key={message.id} />
             )
           })}
         </ul>
@@ -69,3 +59,7 @@ export const NotificationWidget = () => {
     </div>
   )
 }
+
+NotificationWidget.displayName = 'NotificationWidget'
+
+export { NotificationWidget }
