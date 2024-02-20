@@ -4,6 +4,7 @@ import { MessageData, generateMessage } from "@/utils/message-generator"
 import { useState } from "react"
 import { NotificationWidgetItem } from "./notification-widget-item"
 import { AnimatePresence } from "framer-motion"
+import { useKeyPress } from "@/hooks/useKeyPress"
 
 const NotificationWidget = () => {
   const [messages, setMessages] = useState<MessageData[]>([])
@@ -31,6 +32,8 @@ const NotificationWidget = () => {
     })
     setSelectedMessages([])
   }
+
+  useKeyPress(["Delete"], () => archiveMessages())
 
   return (
     <div className="bg-white rounded-xl shadow">
