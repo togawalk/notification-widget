@@ -3,6 +3,7 @@
 import { MessageData, generateMessage } from "@/utils/message-generator"
 import { useState } from "react"
 import { NotificationWidgetItem } from "./notification-widget-item"
+import { AnimatePresence } from "framer-motion"
 
 const NotificationWidget = () => {
   const [messages, setMessages] = useState<MessageData[]>([])
@@ -40,19 +41,22 @@ const NotificationWidget = () => {
       </div>
       <div className="max-h-[400px] px-3 py-2 overflow-y-scroll">
         <ul>
-          {messages.length == 0 && (
-            <li>
-              <p className="text-center font-semibold py-4 text-zinc-800">
-                No Notifications
-              </p>
-            </li>
-          )}
-          {[...messages].reverse().map((message) => {
-            const isSelected = selectedMessages.includes(message.id)
-            return (
-              <NotificationWidgetItem onClick={() => toggleMessage(message.id)} isSelected={isSelected} message={message} key={message.id} />
-            )
-          })}
+          <AnimatePresence initial={false}>
+            {messages.length == 0 && (
+              <li>
+                <p className="text-center font-semibold py-4 text-zinc-800">
+                  No Notifications
+                </p>
+              </li>
+            )}
+            {[...messages].reverse().map((message) => {
+              const isSelected = selectedMessages.includes(message.id)
+              return (
+                <NotificationWidgetItem onClick={() => toggleMessage(message.id)} isSelected={isSelected} message={message} key={message.id} />
+              )
+            })}
+
+          </AnimatePresence>
         </ul>
 
       </div>
