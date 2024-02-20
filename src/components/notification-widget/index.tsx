@@ -5,32 +5,57 @@ import { useState } from "react"
 import { NotificationWidgetItem } from "./notification-widget-item"
 import { AnimatePresence } from "framer-motion"
 import { useKeyPress } from "@/hooks/useKeyPress"
+import { toast } from "react-toastify"
 
 const NotificationWidget = () => {
   const [messages, setMessages] = useState<MessageData[]>([])
   const [selectedMessages, setSelectedMessages] = useState<string[]>([])
 
   const addMessage = () => {
-    const newMessage = generateMessage()
-    setMessages((prev) => {
-      return [...prev, newMessage]
-    })
+    try {
+      const newMessage = generateMessage()
+      setMessages((prev) => {
+        return [...prev, newMessage]
+      })
+      toast("Message successfully added")
+    } catch (error) {
+      console.error("Error while adding message:", error)
+      toast("Error occurred while adding message")
+    }
   }
 
   const toggleMessage = (id: string) => {
-    setSelectedMessages((prev) => {
-      if (selectedMessages.includes(id)) {
-        return prev.filter((i) => i != id)
-      }
-      return [...prev, id]
-    })
+    try {
+      setSelectedMessages((prev) => {
+        if (selectedMessages.includes(id)) {
+          return prev.filter((i) => i != id)
+        }
+        return [...prev, id]
+      })
+    } catch (error) {
+      console.error("Error while toggle message:", error)
+      toast("Error occurred while toggle message")
+    }
   }
 
   const archiveMessages = () => {
-    setMessages((prev) => {
-      return prev.filter((message) => !selectedMessages.includes(message.id))
-    })
-    setSelectedMessages([])
+    if (selectedMessages.length === 0) {
+      toast("No selected messages")
+      return
+    }
+
+    const countSelectedMessages = selectedMessages.length
+
+    try {
+      setMessages((prev) => {
+        return prev.filter((message) => !selectedMessages.includes(message.id))
+      })
+      setSelectedMessages([])
+      toast(`${countSelectedMessages} messages successfully deleted`)
+    } catch (error) {
+      console.error("Error while setting messages:", error)
+      toast("Error occurred while deleting messages")
+    }
   }
 
   useKeyPress(["Delete"], () => archiveMessages())
