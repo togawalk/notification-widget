@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import { MessageData, generateMessage } from "@/utils/message-generator"
 import { useState } from "react"
@@ -14,7 +14,6 @@ const NotificationWidget = () => {
     setMessages((prev) => {
       return [...prev, newMessage]
     })
-
   }
 
   const toggleMessage = (id: string) => {
@@ -36,8 +35,18 @@ const NotificationWidget = () => {
   return (
     <div className="bg-white rounded-xl shadow">
       <div className="flex justify-between border-b-zinc-100 border-b p-4 font-medium">
-        <button className="text-zinc-400 px-2 py-1 hover:text-zinc-500 -mx-2 transition-colors ease-in" onClick={addMessage}>Add</button>
-        <button className="text-zinc-400 px-2 py-1 hover:text-zinc-500 transition-colors ease-in" onClick={archiveMessages}>Archive</button>
+        <button
+          className="text-zinc-400 px-2 py-1 hover:text-zinc-500 -mx-2 transition-colors ease-in"
+          onClick={addMessage}
+        >
+          Add
+        </button>
+        <button
+          className="text-zinc-400 px-2 py-1 hover:text-zinc-500 transition-colors ease-in"
+          onClick={archiveMessages}
+        >
+          Archive
+        </button>
       </div>
       <div className="max-h-[400px] px-3 py-2 overflow-y-scroll">
         <ul>
@@ -52,18 +61,21 @@ const NotificationWidget = () => {
             {[...messages].reverse().map((message) => {
               const isSelected = selectedMessages.includes(message.id)
               return (
-                <NotificationWidgetItem onClick={() => toggleMessage(message.id)} isSelected={isSelected} message={message} key={message.id} />
+                <NotificationWidgetItem
+                  onClick={() => toggleMessage(message.id)}
+                  isSelected={isSelected}
+                  message={message}
+                  key={message.id}
+                />
               )
             })}
-
           </AnimatePresence>
         </ul>
-
       </div>
     </div>
   )
 }
 
-NotificationWidget.displayName = 'NotificationWidget'
+NotificationWidget.displayName = "NotificationWidget"
 
 export { NotificationWidget }

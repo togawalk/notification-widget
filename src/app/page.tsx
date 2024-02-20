@@ -1,5 +1,5 @@
-import { NotificationWidget } from "@/components/notification-widget";
-import Image from "next/image";
+import { NotificationWidget } from "@/components/notification-widget"
+import Image from "next/image"
 
 export default function Home() {
   return (
@@ -12,5 +12,5 @@ export default function Home() {
         <NotificationWidget />
       </div>
     </main>
-  );
+  )
 }

@@ -1,13 +1,13 @@
-import { v4 as uuid } from "uuid";
+import { v4 as uuid } from "uuid"
 
 let titles = [
   {
     title: "Apple's newest iPhone is here",
-    subtitle: "Watch our July event"
+    subtitle: "Watch our July event",
   },
   {
     title: "Your funds have been processed",
-    subtitle: "See your latest deposit online"
+    subtitle: "See your latest deposit online",
   },
   {
     title: "This Week in Sports",
@@ -20,20 +20,20 @@ let titles = [
   {
     title: "React Hawaii is here!",
     subtitle: "Time for fun in the sun",
-  }
-];
+  },
+]
 
 export interface MessageData {
-  id: string;
+  id: string
   content: {
-    title: string,
+    title: string
     subtitle: string
-  };
+  }
 }
 
 export const generateMessage = (): MessageData => {
   return {
     id: uuid(),
     content: titles[Math.floor(Math.random() * titles.length)],
-  };
-};
+  }
+}
